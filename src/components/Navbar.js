@@ -5,24 +5,16 @@ export default function Navbar() {
     <NavItem>
       <NavItemList>
         <ListItem>
-          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">
-            Home
-          </Link>
+          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">Home</Link>
         </ListItem>
         <ListItem>
-          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">
-            Random
-          </Link>
+          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">Random</Link>
         </ListItem>
         <ListItem>
-          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">
-            Favorites
-          </Link>
+          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">Favorites</Link>
         </ListItem>
         <ListItem>
-          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">
-            Get creative
-          </Link>
+          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">Get creative</Link>
         </ListItem>
       </NavItemList>
     </NavItem>
@@ -36,6 +28,7 @@ const NavItem = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
+  background-color: pink;
 `;
 
 const NavItemList = styled.ul`
