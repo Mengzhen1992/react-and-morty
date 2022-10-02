@@ -1,20 +1,21 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-export default function Navbar() {
+export default function Navbar({ page, setPage }) {
   return (
     <NavItem>
       <NavItemList>
         <ListItem>
-          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">Home</Link>
+          <Link to="/">Home</Link>
         </ListItem>
         <ListItem>
-          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">Random</Link>
+          <Link to="/random">Random</Link>
         </ListItem>
         <ListItem>
-          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">Favorites</Link>
+          <Link to="/favorites">Favorites</Link>
         </ListItem>
         <ListItem>
-          <Link href="https://rickandmortyapi.com/api/character/avatar/2.jpeg">Get creative</Link>
+          <Link to="/creative">Get creative</Link>
         </ListItem>
       </NavItemList>
     </NavItem>
@@ -48,7 +49,7 @@ const ListItem = styled.li`
   font-size: 1.5rem;
 `;
 
-const Link = styled.a`
+const Link = styled(NavLink)`
   text-decoration: none;
   color: black;
   padding: 10px 0;
