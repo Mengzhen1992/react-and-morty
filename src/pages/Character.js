@@ -14,8 +14,27 @@ import {
 
 export default function Character({ characters }) {
   const [showDetail, setShowDetail] = useState(true);
+  const [isFav, setIsFav] = useState(JSON.parse(localStorage.getItem('is-fav')) || false);
   let { userId } = useParams();
+
+  const handleToggle = () => {
+    localStorage.setItem('is-fav', JSON.stringify(!isFav));
+    setIsFav(!isFav);
+  };
+
   if (characters.length === 0) return null;
+
+  const FavButton = styled.button`
+    position: absolute;
+    top: -1.2em;
+    right: -1.2em;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background-color: ${isFav ? 'grey' : 'gray'};
+    opacity: ${isFav ? '1.0' : '0.3'};
+    border: 1px solid gray;
+  `;
 
   const obj = characters.find((item) => item.id === Number(userId)); /* userId is a string */
   const { id, image, name, status, species, gender, origin, location } = obj;
@@ -24,6 +43,7 @@ export default function Character({ characters }) {
     <CardContainer>
       <CardItem id={id}>
         <CardImageContainer>
+          <FavButton onClick={handleToggle} />
           <CardImage src={image} alt={name} />
         </CardImageContainer>
         {showDetail ? (

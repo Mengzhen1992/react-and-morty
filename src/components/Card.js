@@ -27,7 +27,7 @@ export const CardContainer = styled.ul`
   display: flex;
   flex-flow: row wrap;
   gap: 30px;
-  margin: 10px 100px 80px 100px;
+  margin: 20px 100px 80px 100px;
 `;
 
 export const CardItem = styled.li`
@@ -39,6 +39,7 @@ export const CardItem = styled.li`
 `;
 
 export const CardImageContainer = styled.div`
+  position: relative;
   height: 300px;
 `;
 
