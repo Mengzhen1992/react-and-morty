@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -13,16 +13,21 @@ import {
 } from '../components/Card';
 
 export default function Character({ characters }) {
-  const [showDetail, setShowDetail] = useState(true);
-  const [isFav, setIsFav] = useState(JSON.parse(localStorage.getItem('is-fav')) || false);
   let { userId } = useParams();
 
-  const handleToggle = () => {
-    localStorage.setItem('is-fav', JSON.stringify(!isFav));
-    setIsFav(!isFav);
-  };
+  const obj = characters.find((item) => item.id === Number(userId)); /* userId is a string */
 
-  if (characters.length === 0) return null;
+  return <CharacterChildren obj={obj} userId={userId} />;
+}
+
+function CharacterChildren({ obj, userId }) {
+  const [showDetail, setShowDetail] = useState(true);
+  const [isFav, setIsFav] = useState(JSON.parse(localStorage.getItem(`is-fav-${userId}`)));
+
+  function handleToggle(id) {
+    localStorage.setItem(`is-fav-${id}`, !isFav);
+    setIsFav(!isFav);
+  }
 
   const FavButton = styled.button`
     position: absolute;
@@ -31,19 +36,20 @@ export default function Character({ characters }) {
     border-radius: 50%;
     height: 40px;
     width: 40px;
-    background-color: ${isFav ? 'grey' : 'gray'};
+    background-color: ${isFav ? 'pink' : 'gray'};
     opacity: ${isFav ? '1.0' : '0.3'};
-    border: 1px solid gray;
+    border: 1px solid ${isFav ? 'pink' : 'gray'};
   `;
 
-  const obj = characters.find((item) => item.id === Number(userId)); /* userId is a string */
+  if (obj === undefined || null) return;
+
   const { id, image, name, status, species, gender, origin, location } = obj;
 
   return (
     <CardContainer>
       <CardItem id={id}>
         <CardImageContainer>
-          <FavButton onClick={handleToggle} />
+          <FavButton onClick={() => handleToggle(id)} />
           <CardImage src={image} alt={name} />
         </CardImageContainer>
         {showDetail ? (
