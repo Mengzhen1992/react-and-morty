@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  CardContainer,
   CardItem,
   CardImageContainer,
   CardImage,
@@ -12,21 +11,29 @@ import {
   CardButton,
 } from '../components/Card';
 
-export default function Character({ characters }) {
+export default function Character({ characters, setFavCharacters }) {
   let { userId } = useParams();
 
   const obj = characters.find((item) => item.id === Number(userId)); /* userId is a string */
 
-  return <CharacterChildren obj={obj} userId={userId} />;
+  if (obj !== null && obj !== undefined) return <CharacterChildren obj={obj} setFavCharacters={setFavCharacters} />;
 }
 
-function CharacterChildren({ obj, userId }) {
+export function CharacterChildren({ obj, setFavCharacters }) {
+  const { id, image, name, status, species, gender, origin, location } = obj;
+
   const [showDetail, setShowDetail] = useState(true);
-  const [isFav, setIsFav] = useState(JSON.parse(localStorage.getItem(`is-fav-${userId}`)));
+  const [isFav, setIsFav] = useState(localStorage.getItem(`is-fav-${id}`) === 'true');
+
+  console.log(`is-fav-${id}`, isFav);
 
   function handleToggle(id) {
-    localStorage.setItem(`is-fav-${id}`, !isFav);
-    setIsFav(!isFav);
+    const currentIsFav = !isFav;
+    localStorage.setItem(`is-fav-${id}`, currentIsFav);
+    setIsFav(currentIsFav);
+    currentIsFav
+      ? setFavCharacters((pre) => [...pre, obj])
+      : setFavCharacters((pre) => pre.filter((pre) => pre.id !== id));
   }
 
   const FavButton = styled.button`
@@ -43,10 +50,8 @@ function CharacterChildren({ obj, userId }) {
 
   if (obj === undefined || null) return;
 
-  const { id, image, name, status, species, gender, origin, location } = obj;
-
   return (
-    <CardContainer>
+    <CharacterContainer>
       <CardItem id={id}>
         <CardImageContainer>
           <FavButton onClick={() => handleToggle(id)} />
@@ -73,9 +78,15 @@ function CharacterChildren({ obj, userId }) {
           </CardTextContainer>
         )}
       </CardItem>
-    </CardContainer>
+    </CharacterContainer>
   );
 }
+
+const CharacterContainer = styled.ul`
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 20px;
+`;
 
 const DetailCardTextContainer = styled.div`
   height: 310px;
