@@ -1,13 +1,27 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CharacterCard } from '../components/Card';
+import { useState } from 'react';
 
-export default function Random() {
+export default function Random({ characters }) {
+  const [id, setId] = useState(null);
+
+  function handleRandomCharacter() {
+    let randomId = Math.floor(Math.random() * 19);
+    console.log(characters[0]);
+    setId(randomId);
+  }
+
   return (
     <section>
-      <RandomCardItem>
-        <FontAwesomeIcon icon="fa-solid fa-question" />
-      </RandomCardItem>
-      <RandomCardButton>Get Random Character</RandomCardButton>
+      {id === null ? (
+        <RandomCardItem>
+          <FontAwesomeIcon icon="fa-solid fa-question" />
+        </RandomCardItem>
+      ) : (
+        <CharacterCard item={characters[id]} />
+      )}
+      <RandomCardButton onClick={handleRandomCharacter}>Get Random Character</RandomCardButton>
     </section>
   );
 }

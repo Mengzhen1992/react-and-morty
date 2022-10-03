@@ -5,21 +5,28 @@ export default function Card({ characters }) {
   return (
     <section>
       <CardContainer>
-        {characters.map(({ name, image, id }, index) => (
-          <CardItem key={index} id={id}>
-            <CardImageContainer>
-              <CardImage src={image} alt={name} />
-            </CardImageContainer>
-            <CardTextContainer>
-              <CardNameText>{name}</CardNameText>
-              <LinkButton to={`details/${id}`}>
-                <CardButton>Show more</CardButton>
-              </LinkButton>
-            </CardTextContainer>
-          </CardItem>
-        ))}
+        {characters.map((item) => {
+          return <CharacterCard key={item.id} item={item} />;
+        })}
       </CardContainer>
     </section>
+  );
+}
+
+export function CharacterCard({ item }) {
+  const { id, name, image } = item;
+  return (
+    <CardItem id={id}>
+      <CardImageContainer>
+        <CardImage src={image} alt={name} />
+      </CardImageContainer>
+      <CardTextContainer>
+        <CardNameText>{name}</CardNameText>
+        <LinkButton to={`/details/${id}`}>
+          <CardButton>Show more</CardButton>
+        </LinkButton>
+      </CardTextContainer>
+    </CardItem>
   );
 }
 

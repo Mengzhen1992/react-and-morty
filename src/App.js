@@ -53,7 +53,8 @@ function App() {
             key="/details/:userId"
             element={<Character characters={characters} setFavCharacters={setFavCharacters} />}
           />
-          <Route path="/random" element={<Random />} />
+
+          <Route path="/random" element={<Random characters={characters} />} />
           <Route
             path="/favorites"
             element={<Favorites favCharachters={favCharachters} setFavCharacters={setFavCharacters} />}
