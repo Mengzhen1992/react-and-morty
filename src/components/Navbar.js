@@ -14,9 +14,6 @@ export default function Navbar() {
         <ListItem>
           <Link to="/favorites">Favorites</Link>
         </ListItem>
-        <ListItem>
-          <Link to="/creative">Get creative</Link>
-        </ListItem>
       </NavItemList>
     </NavItem>
   );

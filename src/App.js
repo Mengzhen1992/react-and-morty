@@ -5,7 +5,6 @@ import Card from './components/Card';
 import Navbar from './components/Navbar';
 import Random from './pages/Random';
 import Favorites from './pages/Favorites';
-import Creative from './pages/Creative';
 import Character from './pages/Character';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -59,7 +58,6 @@ function App() {
             path="/favorites"
             element={<Favorites favCharachters={favCharachters} setFavCharacters={setFavCharacters} />}
           />
-          <Route path="/creative" element={<Creative />} />
         </Routes>
       </main>
       <footer>
